@@ -1,57 +1,95 @@
 <!DOCTYPE html>
 <html>
-<head>
+	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 		<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
 
 		<!-- Styling		 -->
-		<style>
-.ui-bar-f {
-    color: red;
-    background-color: yellow;
-}
+		<!-- <style>
+		.ui-bar-f {
+		color: red;
+		background-color: yellow;
+		}
 
-.ui-body-f {
-    font-weight: bold;
-    color: white;
-    background-color: purple;
-}
+		.ui-body-f {
+		font-weight: bold;
+		color: white;
+		background-color: purple;
+		}
 
-.ui-page-theme-f {
-    font-weight: bold;
-    background-color: yellow;
-}
+		.ui-page-theme-f {
+		font-weight: bold;
+		background-color: yellow;
+		}
 
-		</style>
+		</style> -->
+		<body>
 
-	<body>
-		
-				<!-- <div data-role="page" id="home" data-theme="f"> -->
+			<!-- <div data-role="page" id="home" data-theme="f"> -->
 			<div data-role="header" data-theme="f">
 
+				<div data-role="page" id="home" data-theme="f">
+					<div data-role="header" data-theme="f">
+						<h1>Note3</h1>
+						<a href="#" class="ui-btn" data-rel="back">Go Back</a>
+					</div>
 
-		<div data-role="page" id="home" data-theme="f">
-			<div data-role="header" data-theme="f">
-				<h1>Note1</h1>
-				<a href="#" class="ui-btn" data-rel="back">Go Back</a>
-			</div>
+					<div data-role="main" class="ui-content">
+						<p>
+							<span id="webStorageStoredText"></span>
+							<br />
+							Enter Text To Store in Local Storage:
+							<input type="text" id="webStorageInput" name="webStorageInput" />
+							<input type="submit" id="webStorageSaveBtn" value="Save" />
+							<span id="notCompatibleMsg" style="color:#FF0000; display:none;">Unfortunately, your browser is no compatible with this example.</span>
+							<span id="isCompatibleMsg" style="color:#00FF00; display:none;">Congratulations, your browser is compatible with this example!</span>
 
-			<div data-role="main" class="ui-content">
-				<p>
-					Work starting time: 14:30
-				</p>
-				<p>
-					Cool colligue: Alex
-					<br />
-					Best day of working: Firday morning
-					<br />
-					Work on project 213
-				</p>
-			</div>
+							<script type="text/javascript">
+								//Do a quick check to see if the browser is capable of using localStorage.
+								//If it's not, give the user a warning that their browser is not compatible.
+								if ( typeof (localStorage) == 'undefined') {
+									document.getElementById('notCompatibleMsg').style.display = 'block';
+								} else {
+									document.getElementById('isCompatibleMsg').style.display = 'block';
+								}
 
-			<div data-role="footer">
-				<!-- add the footer here -->
-			</div>
-		</div>
+								//3
+
+								//Let's get all the DOM elements we will need.
+								var storedTextContainer = document.getElementById("webStorageStoredText");
+								//This is the way you access localStorage data.
+								var storedText = localStorage.getItem('webStorageTestInput');
+								var inputBox = document.getElementById("webStorageInput");
+								var saveBtn = document.getElementById("webStorageSaveBtn");
+
+								//4
+								//Let's check if there is stored text in localStorage.
+								if (storedText != null) {
+									//Ok, there is stored text. Let's put it in the storedTextContainer so the use can see it.
+									storedTextContainer.innerHTML = "<strong>Text Loaded From Local Storage:</strong> " + storedText;
+								}
+
+								//We need a handler for the save button that will save the input value in localStorage.
+								saveBtn.onclick = function() {
+									//Before we save this data, let's escape it so you "hackers" out there don't try anything funny!
+									var valueToSave = inputBox.value.replace(/<\/?[^>]+>/gi, '');
+
+									//This is the way we store things in localStorage
+									localStorage.setItem('webStorageTestInput', valueToSave);
+
+									//Let the user know the text was saved.
+									alert("Successfully saved '" + valueToSave + ".'  Please refresh the page to see how the data is retrieved.");
+								}
+
+							</script>
+
+						</p>
+					</div>
+
+					<div data-role="footer">
+						<!-- add the footer here -->
+					</div>
+				</div>
